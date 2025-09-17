@@ -3,7 +3,7 @@
 #define NOB_EXPERIMENTAL_DELETE_OLD
 #include "nob.h"
 
-#define SIZE 1000000
+#define SIZE 1024
 static const char* TMP = "tmp.c";
 static Cmd cmd;
 
