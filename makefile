@@ -2,20 +2,25 @@ CHCFILES := $(shell find . -name "*.chc" -type f)
 HTMLFILES := $(CHCFILES:.chc=.html)
 CHC := $(PWD)/chc
 
+.PHONY: all clean clean-html list help FORCE
+
 all: $(HTMLFILES)
 
+FORCE:
+
 # compile each .chc to .html
-%.html: %.chc
+%.html: %.chc FORCE
 	echo "Compiling $< ..."
 	$(CHC) $< $@
 	echo "Compiled $< to $@"
-	rm -f $(dir $<)tmp.c $(dir $<)temp	
+	rm -f $(dir $<)tmp.c $(dir $<)temp
 	./loadpage
+
 # cleaning files
 clean:
 	echo "Cleaning all generated files..."
 	find . -name "*.html" -type f -delete
-	find . -name "tmp.c" -type 	f -delete
+	find . -name "tmp.c" -type f -delete
 	find . -name "temp" -type f -delete
 	echo "Removed generated files."
 
@@ -23,7 +28,8 @@ clean:
 clean-html:
 	echo "Cleaning only HTML files..."
 	find . -name "*.html" -type f -delete
-#list chc file
+
+# list chc file
 list:
 	echo "Found CHC files:"
 	find . -name "*.chc" -type f
@@ -36,5 +42,3 @@ help:
 	echo "  clean-html - Remove only HTML files, keep CHC files"
 	echo "  list       - List all .chc files found"
 	echo "  help       - Show this help message"
-
-.PHONY: all clean clean-html list help

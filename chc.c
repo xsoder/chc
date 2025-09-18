@@ -45,6 +45,7 @@ void compile_block(const char *block, FILE *out) {
     if (!out) return ;
     while (fgets(buf, sizeof buf, p)) fputs(buf, out);
     pclose(p);
+    if(!delete_file("temp")) return;
 }
 
 int main(int argc, char **argv) {
@@ -89,7 +90,6 @@ int main(int argc, char **argv) {
         fclose(out);
         fclose(in);
 
-        if(!delete_file("temp")) return 1;
         return 0;
     } else {
         nob_log(NOB_ERROR, "Usage: chc <input_file> and <output_file> ");
