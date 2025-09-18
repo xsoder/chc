@@ -1,1 +1,6 @@
 **/*.chc
+.gitignore
+loadpage
+website
+nob
+chc

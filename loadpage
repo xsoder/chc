@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-URL="file://$PWD/index.html"
+URL="file://$PWD/website/index.html"
 
 log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
