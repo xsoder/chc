@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+gcc -o nob nob.c
+./nob
+sudo cp chc /usr/local/bin/chc
+sudo cp nob.h /usr/include
