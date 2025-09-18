@@ -90,9 +90,6 @@ int main(int argc, char **argv) {
         fclose(in);
 
         if(!delete_file("temp")) return 1;
-
-        cmd_append(&cmd, "./loadpage");
-        if(!cmd_run(&cmd)) return 1;
         return 0;
     } else {
         nob_log(NOB_ERROR, "Usage: chc <input_file> and <output_file> ");
