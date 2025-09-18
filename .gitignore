@@ -2,6 +2,7 @@
 *.chc
 .gitignore
 loadpage
-website
+website/
+src/
 nob
 chc
