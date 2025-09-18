@@ -13,7 +13,6 @@ FORCE:
 	echo "Compiling $< ..."
 	$(CHC) $< $@
 	echo "Compiled $< to $@"
-	rm -f $(dir $<)tmp.c $(dir $<)temp
 	./loadpage
 
 # cleaning files

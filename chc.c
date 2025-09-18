@@ -46,6 +46,7 @@ void compile_block(const char *block, FILE *out) {
     while (fgets(buf, sizeof buf, p)) fputs(buf, out);
     pclose(p);
     if(!delete_file("temp")) return;
+    if(!delete_file(TMP)) return;
 }
 
 int main(int argc, char **argv) {
