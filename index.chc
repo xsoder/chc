@@ -28,7 +28,7 @@ for (int i = 0; i < path.count; ++i) {
            } else {
                strcpy(strip, list);
            }
-           printf("<li><a href= '%s/%s'>%s</a></li>", dir_path, list, strip);
+           printf("<li><a href= '%s/%s'>%s</a></li>\n", dir_path, list, strip);
        }
    }
 }
