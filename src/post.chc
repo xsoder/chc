@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<ul>
+@
+const char *dir_path = "../posts";
+const char *list;
+File_Paths path = {0};
+if(!read_entire_dir(dir_path, &path)) return 1;
+for (int i = 0; i < path.count; ++i)
+   if(strcmp(path.items[i],"..") == 0 || strcmp(path.items[i],".") == 0)
+       continue;
+    else {
+        list = path.items[i];
+        char strip[100];
+        strncpy(strip, list, strlen(list) - 3);
+        printf("<li><a href= '%s/%s'>%s</a></li>", dir_path, list, strip);
+        memset(strip, 0, sizeof strip);
+    }
+@
+
+</html>

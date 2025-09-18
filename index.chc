@@ -1,10 +1,15 @@
-#define NOB_IMPLEMENTATION
-#define NOB_STRIP_PREFIX
-#define NOB_EXPERIMENTAL_DELETE_OLD
-#include <nob.h>
+<!DOCTYPE html>
+<html>
 
-int main(void) {
+<head> 
+<title>Peak</title>
+<link rel="stylesheet" href="urmom.css">
+</head>
 
+<body>
+<nav>
+<ul>
+@
 const char *dir_path = "src";
 const char *list;
 File_Paths path = {0};
@@ -27,6 +32,9 @@ for (int i = 0; i < path.count; ++i) {
        }
    }
 }
+@
+</nav>
 
-return 0;
-}
+<script href = "main.js"></script>
+</body>
+</html>

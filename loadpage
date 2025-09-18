@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+URL="file://$PWD/index.html"
+
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
+}
+
+if xdotool search --onlyvisible --name "chromium" > /dev/null 2>&1; then
+    WID=$(xdotool search --onlyvisible --name "chromium" | head -n1)
+    xdotool windowactivate "$WID"
+    if xdotool key --window "$WID" ctrl+r; then
+        log "Ur mom"
+    else
+        log "Failed To bang ur mom"
+    fi
+else
+    chromium "$URL" &
+    if pgrep -x "chromium" > /dev/null; then
+        log "Chrome banged ur mom."
+    else
+        log "Chrome did banged ur mom."
+    fi
+fi

@@ -23,8 +23,8 @@ int run(int argc, char **argv, const char *input, const char *output) {
 
 void compile_block(const char *block, FILE *out) {
     FILE *tmp = fopen(TMP, "w");
-    const char *text = "#include <nob.h>\n";
     if (!tmp) return;
+    const char *text = "#include <nob.h>\n";
     fprintf(tmp,
     "#define NOB_IMPLEMENTATION\n"
     "#define NOB_STRIP_PREFIX\n"
@@ -38,7 +38,7 @@ void compile_block(const char *block, FILE *out) {
     // TODO add a parameter to pass in the name
     common();
     cmd_append(&cmd, "-I.", "-o", "temp", TMP);
-    if(!cmd_run(&cmd)) return ;
+    if(!cmd_run(&cmd)) return;
 
     FILE *p = popen("./temp", "r");
     char buf[SIZE];
@@ -48,43 +48,54 @@ void compile_block(const char *block, FILE *out) {
 }
 
 int main(int argc, char **argv) {
-    FILE *in = fopen("index.txt", "r");
-    FILE *out = fopen("index.html", "w");
-    if (!in) return 1;
-    if (!out) return 1;
-        
-    int c;
-    int inside = 0;
-    size_t length = 0;
-    char cblock[SIZE];
-        
-    while ((c = fgetc(in)) != EOF) {
-        if (inside) {
-            if (c == '@') {
-                cblock[length] = '\0';
-                compile_block(cblock, out);
-                inside = 0;
-                continue;
-            }
-            if (length < sizeof cblock - 1) {
-                cblock[length++] = (char)c;
-            } 
-        } else {
-            if (c == '@') {
-                inside = 1;
-                length = 0;
-                continue;
-            }
-            fputc(c, out);
-        }
-        
+    if (argc < 3) {
+        nob_log(NOB_ERROR, "Usage: chc <input_file> and <output_file> ");
+        return 1;
     }
+    else if (argc == 3)
+    {
+        FILE *in = fopen(argv[1], "r");
+        FILE *out = fopen(argv[2], "w");
+        if (!in) return 1;
+        if (!out) return 1;
+        
+        int c;
+        int inside = 0;
+        size_t length = 0;
+        char cblock[SIZE];
+        
+        while ((c = fgetc(in)) != EOF) {
+            if (inside) {
+                if (c == '@') {
+                    cblock[length] = '\0';
+                    compile_block(cblock, out);
+                    inside = 0;
+                    continue;
+                }
+                if (length < sizeof cblock - 1) {
+                    cblock[length++] = (char)c;
+                } 
+            } else {
+                if (c == '@') {
+                    inside = 1;
+                    length = 0;
+                    continue;
+                }
+                fputc(c, out);
+            }
+            
+        }
 
-    fclose(out);
-    fclose(in);
-    run(argc, argv, "chc.c", "chc");
+        fclose(out);
+        fclose(in);
 
-    if(!delete_file("temp")) return 1;
-    needs_rebuild1("chc", "chc.c");
-    return 0;
+        if(!delete_file("temp")) return 1;
+
+        cmd_append(&cmd, "./loadpage");
+        if(!cmd_run(&cmd)) return 1;
+        return 0;
+    } else {
+        nob_log(NOB_ERROR, "Usage: chc <input_file> and <output_file> ");
+        return 1;
+    }
 }
