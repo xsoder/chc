@@ -7,7 +7,7 @@
 static const char* TMP = "tmp.c";
 static Cmd cmd;
 
-void common() {
+void common(void) {
     cmd_append(&cmd, "gcc");
     cmd_append(&cmd, "-Wall", "-Werror");
 }
